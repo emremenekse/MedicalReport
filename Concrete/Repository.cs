@@ -131,7 +131,7 @@ namespace MedicalReport.Concrete
         {
             var response = await _client.SearchAsync<Document>(s => s
                 .Index("bc5cdr_data")
-                .Size(1000) // Kaç kayıt döneceğini burada belirliyoruz
+                .Size(1000) 
                 .Query(q => q
                     .Wildcard(w => w
                         .Field(f => f.Tokens)
