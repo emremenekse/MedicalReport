@@ -193,7 +193,8 @@ namespace MedicalReport.Services
                         {
                             var randomName = nameList[random.Next(nameList.Count)];
 
-                            document.Tokens[i] = randomName;
+                            document.Tokens[i] = randomName.Split(" ")[0];
+                            document.Tags[i] = 3;
                         }
                     }
 
@@ -201,15 +202,23 @@ namespace MedicalReport.Services
                     updatedDocumentsAsStringList.Add(documentAsString);
                 }
             }
-
+            var testlikDocuments = documents;
             var tasks = updatedDocumentsAsStringList.Select(async item =>
             {
-                var jsonDocument = new { Content = item }; 
-                await _repository.IndexDocumentAsync(jsonDocument, "modifieddocumentnamed");
+                var jsonDocument = new { Content = item };
+                string documentId = GenerateDocumentId(item);
+
+                await _repository.IndexOrUpdateDocumentAsync(jsonDocument, "modifieddocumentnamed", documentId);
             });
 
             await Task.WhenAll(tasks);
 
+        }
+        private string GenerateDocumentId(string itemContent)
+        {
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var hash = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(itemContent));
+            return Convert.ToBase64String(hash);
         }
         public async Task<ResponseDTO<List<string>>> GetAllModifiedDatas()
         {

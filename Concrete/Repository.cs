@@ -53,6 +53,18 @@ namespace MedicalReport.Concrete
 
             return contentList;
         }
+        public async Task IndexOrUpdateDocumentAsync<T>(T document, string indexName, string documentId) where T : class
+        {
+            var response = await _client.IndexAsync(document, idx => idx
+                .Index(indexName)
+                .Id(documentId) 
+            );
+
+            if (!response.IsValid)
+            {
+                throw new Exception("Veri indexlenemedi: " + response.ServerError?.Error.Reason);
+            }
+        }
 
 
         public async Task<T> SaveAsync<T>(T entity, string indexName) where T : class
@@ -130,17 +142,54 @@ namespace MedicalReport.Concrete
         public async Task<IEnumerable<Document>> GetDocumentsContainingPatientAsync()
         {
             var response = await _client.SearchAsync<Document>(s => s
-                .Index("bc5cdr_data")
-                .Size(1000) 
-                .Query(q => q
-                    .Wildcard(w => w
-                        .Field(f => f.Tokens)
-                        .Value("*patient*")
-                    )
-                )
-            );
+    .Index("bc5cdr_data")
+    .Size(1000)
+    .Query(q => q
+        .Term(t => t
+            .Field(f => f.Tokens)
+            .Value("patient") 
+        )
+    )
+);
+            List<Document> filteredDocuments = new();
+            response.Documents.Where(doc =>
+            {
+                var tokens = doc.Tokens?.Select(t => t.ToLower()).ToList();
+                if (tokens == null || tokens.Count == 0)
+                {
+                    return false; 
+                }
 
-            return response.Documents;
+                for (int i = 0; i < tokens.Count; i++)
+                {
+                    if (tokens[i] == "patient")
+                    {
+                        if (i > 0)
+                        {
+                            var previousToken = tokens[i - 1];
+                            if (previousToken.ToLower() != "every" && previousToken.ToLower() != "in" &&
+                            previousToken.ToLower() != "the" && previousToken.ToLower() != "a" &&
+                            previousToken.ToLower() != "1" &&
+                            previousToken.ToLower() != "per" &&
+                            previousToken.ToLower() != "one" && previousToken.ToLower() != "ın" && previousToken.ToLower() != "each")
+                            {
+                                filteredDocuments.Add(doc); 
+                                return true; 
+                            }
+                        }
+                        else
+                        {
+                            
+                            filteredDocuments.Add(doc);
+                            return true;
+                        }
+                    }
+                }
+
+                return false; 
+            }).ToList();
+
+            return filteredDocuments;
         }
 
         public async Task<IEnumerable<Document>> GetRandomNameAsync()
