@@ -12,6 +12,22 @@ namespace MedicalReport.Concrete
         {
             _client = client;
         }
+        public async Task<List<T>> SearchTokensTagsAsync<T>(string indexName, Func<QueryContainerDescriptor<T>, QueryContainer> query, int size = 1000) where T : class
+        {
+            var response = await _client.SearchAsync<T>(s => s
+                .Index(indexName)
+                .Size(size)
+                .Query(query)
+            );
+
+            if (!response.IsValid)
+            {
+                throw new Exception($"Elasticsearch sorgusu başarısız oldu: {response.ServerError?.Error.Reason}");
+            }
+
+            return response.Documents.ToList();
+        }
+
         public async Task<List<AnnotatedDocument>> SearchAsync(string query, string indexName)
         {
             var response = await _client.SearchAsync<AnnotatedDocument>(s => s
@@ -66,6 +82,33 @@ namespace MedicalReport.Concrete
             }
         }
 
+        public async Task IndexDocumentsBulkAsync<T>(IEnumerable<T> documents, string indexName) where T : class
+        {
+            try
+            {
+                var bulkDescriptor = new BulkDescriptor();
+
+                foreach (var document in documents)
+                {
+                    bulkDescriptor.Index<T>(op => op
+                        .Index(indexName)
+                        .Document(document));
+                }
+
+                var response = await _client.BulkAsync(bulkDescriptor);
+
+                if (!response.IsValid)
+                {
+                    throw new Exception("Toplu indeksleme başarısız oldu: " + response.ServerError?.Error.Reason);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+            
+        }
 
         public async Task<T> SaveAsync<T>(T entity, string indexName) where T : class
         {

@@ -1,4 +1,5 @@
-﻿using MedicalReport.Concrete;
+﻿using MedicalReport.Abstractions;
+using MedicalReport.Concrete;
 using MedicalReport.DTOs;
 using MedicalReport.Entity;
 using Nest;
@@ -15,10 +16,12 @@ namespace MedicalReport.Services
     {
         private readonly Repository _repository;
         private readonly IConfiguration _configuration;
-        public MedicalServices(Repository repository, IConfiguration configuration)
+        private readonly HttpService _httpService;
+        public MedicalServices(Repository repository, IConfiguration configuration, HttpService httpService)
         {
             _repository = repository;
             _configuration = configuration;
+            _httpService = httpService;
         }
         public async Task<ResponseDTO<List<AnnotatedDocument>>> SearchAsync(string searchText)
         {
@@ -147,7 +150,7 @@ namespace MedicalReport.Services
 
         public async Task AnonymizeAndIndexDocumentsAsync()
         {
-            var documents = await _repository.GetDocumentsContainingPatientAsync();
+            IEnumerable<Document>? documents = await _repository.GetDocumentsContainingPatientAsync();
             var names = await _repository.GetRandomNameAsync();
             var nameList = new List<string>();
             var random = new Random();
@@ -202,7 +205,8 @@ namespace MedicalReport.Services
                     updatedDocumentsAsStringList.Add(documentAsString);
                 }
             }
-            var testlikDocuments = documents;
+            var testedDocuments = documents;
+            await _repository.IndexDocumentsBulkAsync(documents, "cleareddata");
             var tasks = updatedDocumentsAsStringList.Select(async item =>
             {
                 var jsonDocument = new { Content = item };
@@ -249,6 +253,69 @@ namespace MedicalReport.Services
         private bool IsPunctuation(string token)
         {
             return token.Length == 1 && char.IsPunctuation(token[0]);
+        }
+
+
+
+        public async Task GetAccuracyOfModels()
+        {
+            var clearedDocuments = await _repository.SearchTokensTagsAsync<Document>("cleareddata", q => q.MatchAll());
+
+            var willRequestStrings = await _repository.GetAllContentAsync("modifieddocumentnamed");
+
+            int correctCount = 0;
+            int incorrectCount = 0;
+
+
+
+            //var payload = new { text = willRequestStrings[0] };
+            //var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/spacy", payload);
+
+
+            var tasks = clearedDocuments.Select((document, index) => Task.Run(async () =>
+            {
+                var requestText = willRequestStrings[index];
+
+                var payload = new { text = requestText };
+                var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/spacy", payload);
+
+                for (int j = 0; j < document.Tokens.Count; j++)
+                {
+                    var tokenText = document.Tokens[j];
+                    var tokenTag = document.Tags[j];
+
+                    if (tokenTag == 3) 
+                    {
+                        var matchingResponseToken = result.Body.Tokens.FirstOrDefault(t => t.Text == tokenText);
+
+                        lock (this) 
+                        {
+                            if (matchingResponseToken != null)
+                            {
+                                if (matchingResponseToken.EntityType == "PERSON")
+                                {
+                                    correctCount++;
+                                }
+                                else
+                                {
+                                    incorrectCount++;
+                                }
+                            }
+                            else
+                            {
+                                incorrectCount++;
+                            }
+                        }
+                    }
+                }
+            }));
+
+            await Task.WhenAll(tasks);
+
+            Console.WriteLine($"Doğru Sayısı: {correctCount}");
+            Console.WriteLine($"Yanlış Sayısı: {incorrectCount}");
+
+
         }
     }
 }

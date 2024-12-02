@@ -54,6 +54,14 @@ namespace MedicalReport.Controllers
 
             return CreateActionResultInstance(response); 
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAccuracyOfModels()
+        {
+            await _medicalServices.GetAccuracyOfModels();
+
+            //return CreateActionResultInstance(null); 
+            return Ok();
+        }
 
 
         [HttpPost]

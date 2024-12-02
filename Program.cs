@@ -14,6 +14,7 @@ AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(x => tru
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<MedicalServices>();
+builder.Services.AddHttpClient<HttpService>();
 builder.Services.AddScoped<Repository>();
 builder.Services.AddElasticsearch(builder.Configuration);
 var app = builder.Build();
