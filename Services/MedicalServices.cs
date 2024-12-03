@@ -272,7 +272,7 @@ namespace MedicalReport.Services
             //var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/spacy", payload);
 
 
-            var tasks = clearedDocuments.Select((document, index) => Task.Run(async () =>
+            var tasksSpacy = clearedDocuments.Select((document, index) => Task.Run(async () =>
             {
                 var requestText = willRequestStrings[index];
 
@@ -283,11 +283,16 @@ namespace MedicalReport.Services
                 {
                     var tokenText = document.Tokens[j];
                     var tokenTag = document.Tags[j];
-
+                    
                     if (tokenTag == 3) 
                     {
                         var matchingResponseToken = result.Body.Tokens.FirstOrDefault(t => t.Text == tokenText);
-
+                        //Console.WriteLine("tokenTag ı 3 ");
+                        //if (matchingResponseToken != null)
+                        //{
+                        //    Console.WriteLine($"Document in değerleri {tokenText} bunun tag ı {tokenTag} şimdide api isteği sonuçları Text bu {matchingResponseToken.Text}  Bu da {matchingResponseToken.EntityType}");
+                        //}
+                            
                         lock (this) 
                         {
                             if (matchingResponseToken != null)
@@ -310,10 +315,62 @@ namespace MedicalReport.Services
                 }
             }));
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasksSpacy);
 
-            Console.WriteLine($"Doğru Sayısı: {correctCount}");
-            Console.WriteLine($"Yanlış Sayısı: {incorrectCount}");
+            Console.WriteLine($"Spacy Doğru Sayısı: {correctCount}");
+            Console.WriteLine($"Spacy Yanlış Sayısı: {incorrectCount}");
+
+            correctCount = 0;
+            incorrectCount = 0;
+
+
+            var tasksBert = clearedDocuments.Select((document, index) => Task.Run(async () =>
+            {
+                var requestText = willRequestStrings[index];
+
+                var payload = new { text = requestText };
+                var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/bert", payload);
+
+                for (int j = 0; j < document.Tokens.Count; j++)
+                {
+                    var tokenText = document.Tokens[j];
+                    var tokenTag = document.Tags[j];
+
+                    if (tokenTag == 3)
+                    {
+                        var matchingResponseToken = result.Body.Tokens.FirstOrDefault(t => t.Text == tokenText);
+                        //Console.WriteLine("tokenTag ı 3 ");
+                        //if (matchingResponseToken != null)
+                        //{
+                        //    Console.WriteLine($"Document in değerleri {tokenText} bunun tag ı {tokenTag} şimdide api isteği sonuçları Text bu {matchingResponseToken.Text}  Bu da {matchingResponseToken.EntityType}");
+                        //}
+
+                        lock (this)
+                        {
+                            if (matchingResponseToken != null)
+                            {
+                                if (matchingResponseToken.EntityType == "I-PER")
+                                {
+                                    correctCount++;
+                                }
+                                else
+                                {
+                                    incorrectCount++;
+                                }
+                            }
+                            else
+                            {
+                                incorrectCount++;
+                            }
+                        }
+                    }
+                }
+            }));
+
+            await Task.WhenAll(tasksBert);
+
+            Console.WriteLine($"Bert Doğru Sayısı: {correctCount}");
+            Console.WriteLine($"Bert Yanlış Sayısı: {incorrectCount}");
 
 
         }
