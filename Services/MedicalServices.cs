@@ -17,6 +17,8 @@ namespace MedicalReport.Services
         private readonly Repository _repository;
         private readonly IConfiguration _configuration;
         private readonly HttpService _httpService;
+        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+
         public MedicalServices(Repository repository, IConfiguration configuration, HttpService httpService)
         {
             _repository = repository;
@@ -197,7 +199,7 @@ namespace MedicalReport.Services
                             var randomName = nameList[random.Next(nameList.Count)];
 
                             document.Tokens[i] = randomName.Split(" ")[0];
-                            document.Tags[i] = 3;
+                            document.Tags[i] = 333;
                         }
                     }
 
@@ -259,74 +261,79 @@ namespace MedicalReport.Services
 
         public async Task GetAccuracyOfModels()
         {
+            string logFilePath = "output.txt";
             var clearedDocuments = await _repository.SearchTokensTagsAsync<Document>("cleareddata", q => q.MatchAll());
+            var originalDocuments = clearedDocuments;
 
-            var willRequestStrings = await _repository.GetAllContentAsync("modifieddocumentnamed");
-
-            int correctCount = 0;
-            int incorrectCount = 0;
-
-
-
-            //var payload = new { text = willRequestStrings[0] };
-            //var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/spacy", payload);
-
-
-            var tasksSpacy = clearedDocuments.Select((document, index) => Task.Run(async () =>
+            //var willRequestStrings = await _repository.GetAllContentAsync("modifieddocumentnamed");
+            List<string> updatedDocumentsAsStringList = new();
+            foreach (var item in clearedDocuments)
             {
-                var requestText = willRequestStrings[index];
+                var documentAsString = JoinTokensWithPunctuation(item.Tokens);
+                updatedDocumentsAsStringList.Add(documentAsString);
+            }
+            
+            for (int i = clearedDocuments.Count - 1; i >= 0; i--)
+            {
+                if (clearedDocuments[i].Tags.Count(n => n == 333) > 1)
+                {
+                    clearedDocuments.RemoveAt(i);
+                    updatedDocumentsAsStringList.RemoveAt(i);
+                }
+            }
 
+            int spacyCorrectCount = 0;
+            int spacyIncorrectCount = 0;
+
+            foreach (var (document, index) in clearedDocuments.Select((doc, i) => (doc, i)))
+            {
+                var requestText = updatedDocumentsAsStringList[index];
                 var payload = new { text = requestText };
+
+                // Senkron hale getirmek için 'await' doğrudan kullandık
                 var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/spacy", payload);
 
                 for (int j = 0; j < document.Tokens.Count; j++)
                 {
                     var tokenText = document.Tokens[j];
                     var tokenTag = document.Tags[j];
-                    
-                    if (tokenTag == 3) 
+
+                    if (tokenTag == 333 && char.IsUpper(tokenText[0]))
                     {
                         var matchingResponseToken = result.Body.Tokens.FirstOrDefault(t => t.Text == tokenText);
-                        //Console.WriteLine("tokenTag ı 3 ");
-                        //if (matchingResponseToken != null)
-                        //{
-                        //    Console.WriteLine($"Document in değerleri {tokenText} bunun tag ı {tokenTag} şimdide api isteği sonuçları Text bu {matchingResponseToken.Text}  Bu da {matchingResponseToken.EntityType}");
-                        //}
-                            
-                        lock (this) 
+                        await WriteToFileAsync(logFilePath, $"SPACY-- İstekteki string ifade : {requestText} --Document in değerleri {tokenText} bunun tag ı {tokenTag} şimdide api isteği sonuçları Text bu {matchingResponseToken?.Text ?? "null"}  Bu da {matchingResponseToken?.EntityType ?? "null"}\n");
+
+                        if (matchingResponseToken != null)
                         {
-                            if (matchingResponseToken != null)
+                            if (matchingResponseToken.EntityType == "PERSON")
                             {
-                                if (matchingResponseToken.EntityType == "PERSON")
-                                {
-                                    correctCount++;
-                                }
-                                else
-                                {
-                                    incorrectCount++;
-                                }
+                                spacyCorrectCount++;
+                                break;
                             }
                             else
                             {
-                                incorrectCount++;
+                                spacyIncorrectCount++;
+                                break;
                             }
+                        }
+                        else
+                        {
+                            spacyIncorrectCount++;
+                            break;
                         }
                     }
                 }
-            }));
+            }
 
-            await Task.WhenAll(tasksSpacy);
+            Console.WriteLine($"Spacy Doğru Sayısı: {spacyCorrectCount}");
+            Console.WriteLine($"Spacy Yanlış Sayısı: {spacyIncorrectCount}");
 
-            Console.WriteLine($"Spacy Doğru Sayısı: {correctCount}");
-            Console.WriteLine($"Spacy Yanlış Sayısı: {incorrectCount}");
+             int bertcorrectCount = 0;
+             int bertincorrectCount = 0;
 
-            correctCount = 0;
-            incorrectCount = 0;
-
-
-            var tasksBert = clearedDocuments.Select((document, index) => Task.Run(async () =>
+            foreach (var (document, index) in clearedDocuments.Select((doc, i) => (doc, i)))
             {
-                var requestText = willRequestStrings[index];
+                var requestText = updatedDocumentsAsStringList[index];
 
                 var payload = new { text = requestText };
                 var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/bert", payload);
@@ -336,43 +343,100 @@ namespace MedicalReport.Services
                     var tokenText = document.Tokens[j];
                     var tokenTag = document.Tags[j];
 
-                    if (tokenTag == 3)
+                    if (tokenTag == 333 && char.IsUpper(tokenText[0]))
                     {
                         var matchingResponseToken = result.Body.Tokens.FirstOrDefault(t => t.Text == tokenText);
-                        //Console.WriteLine("tokenTag ı 3 ");
-                        //if (matchingResponseToken != null)
-                        //{
-                        //    Console.WriteLine($"Document in değerleri {tokenText} bunun tag ı {tokenTag} şimdide api isteği sonuçları Text bu {matchingResponseToken.Text}  Bu da {matchingResponseToken.EntityType}");
-                        //}
+                        await WriteToFileAsync(logFilePath, $"BERT -- İstekteki string ifade : {requestText} -- Document in değerleri {tokenText} bunun tag ı {tokenTag} şimdide api isteği sonuçları Text bu {matchingResponseToken?.Text ?? "null"}  Bu da {matchingResponseToken?.EntityType ?? "null"}\n");
 
-                        lock (this)
+                        if (matchingResponseToken != null)
                         {
-                            if (matchingResponseToken != null)
+                            if (matchingResponseToken.EntityType == "I-PER")
                             {
-                                if (matchingResponseToken.EntityType == "I-PER")
-                                {
-                                    correctCount++;
-                                }
-                                else
-                                {
-                                    incorrectCount++;
-                                }
+                                bertcorrectCount++;
+                                break;
                             }
                             else
                             {
-                                incorrectCount++;
+                                bertincorrectCount++;
+                                break;
                             }
+                        }
+                        else
+                        {
+                            bertincorrectCount++;
+                            break;
                         }
                     }
                 }
-            }));
+            }
 
-            await Task.WhenAll(tasksBert);
-
-            Console.WriteLine($"Bert Doğru Sayısı: {correctCount}");
-            Console.WriteLine($"Bert Yanlış Sayısı: {incorrectCount}");
+            Console.WriteLine($"Bert Doğru Sayısı: {bertcorrectCount}");
+            Console.WriteLine($"Bert Yanlış Sayısı: {bertincorrectCount}");
 
 
+
+             int flaircorrectCount = 0;
+             int flairincorrectCount = 0;
+
+            foreach (var (document, index) in clearedDocuments.Select((doc, i) => (doc, i)))
+            {
+                var requestText = updatedDocumentsAsStringList[index];
+
+                var payload = new { text = requestText };
+                var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/flair", payload);
+
+                for (int j = 0; j < document.Tokens.Count; j++)
+                {
+                    var tokenText = document.Tokens[j];
+                    var tokenTag = document.Tags[j];
+
+                    if (tokenTag == 333 && char.IsUpper(tokenText[0]))
+                    {
+                        var matchingResponseToken = result.Body.Tokens.FirstOrDefault(t => t.Text == tokenText);
+                        await WriteToFileAsync(logFilePath, $"FLAIR -- İstekteki string ifade : {requestText} -- Document in değerleri {tokenText} bunun tag ı {tokenTag} şimdide api isteği sonuçları Text bu {matchingResponseToken?.Text ?? "null"}  Bu da {matchingResponseToken?.EntityType ?? "null"}\n");
+
+                        if (matchingResponseToken != null)
+                        {
+                            if (matchingResponseToken.EntityType == "PER")
+                            {
+                                flaircorrectCount++;
+                                break;
+                            }
+                            else
+                            {
+                                flairincorrectCount++;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            flairincorrectCount++;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine($"Flair Doğru Sayısı: {flaircorrectCount}");
+            Console.WriteLine($"Flair Yanlış Sayısı: {flairincorrectCount}");
+
+
+
+        }
+        async Task WriteToFileAsync(string logFilePath, string text)
+        {
+            await _semaphore.WaitAsync();
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(logFilePath, append: true))
+                {
+                    await writer.WriteLineAsync(text);
+                }
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
     }
 }

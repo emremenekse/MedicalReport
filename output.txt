@@ -1,0 +1,126 @@
+﻿SPACY-- İstekteki string ifade : Triazolam- induced brief episodes of secondary mania in a depressed Martin. --Document in değerleri Martin bunun tag ı 333 şimdide api isteği sonuçları Text bu Martin  Bu da ORG
+
+SPACY-- İstekteki string ifade : Acute psychosis due to treatment with phenytoin in a nonepileptic Damon. --Document in değerleri Damon bunun tag ı 333 şimdide api isteği sonuçları Text bu Damon  Bu da PRODUCT
+
+SPACY-- İstekteki string ifade : On hospital admission, blood pressure of the intubated, bradyarrhythmic Maria was 100/ 65 mmHg. --Document in değerleri Maria bunun tag ı 333 şimdide api isteği sonuçları Text bu Maria  Bu da PERSON
+
+SPACY-- İstekteki string ifade : CONCLUSIONS: The venlafaxine overdose in our Graham resulted in a single episode of generalized seizure --Document in değerleri Graham bunun tag ı 333 şimdide api isteği sonuçları Text bu Graham  Bu da PERSON
+
+SPACY-- İstekteki string ifade : The case of a nonepileptic Weizman who developed psychosis following phenytoin treatment for trigeminal neuralgia is described. --Document in değerleri Weizman bunun tag ı 333 şimdide api isteği sonuçları Text bu Weizman  Bu da PERSON
+
+SPACY-- İstekteki string ifade : A 47- year- old Malcolm suffering from coronary artery disease was admitted to the CCU in shock with III. --Document in değerleri Malcolm bunun tag ı 333 şimdide api isteği sonuçları Text bu Malcolm  Bu da PERSON
+
+SPACY-- İstekteki string ifade : The fourth Barbara who was unconscious after chlormethiazole administration exhibite generalized non- reactive activity in the slow beta range. --Document in değerleri Barbara bunun tag ı 333 şimdide api isteği sonuçları Text bu Barbara  Bu da O
+
+SPACY-- İstekteki string ifade : Arafat response was assessed using changes in CD4 + lymphocyte subset count, HIV p24 antigen, weight, and quality of life. --Document in değerleri Arafat bunun tag ı 333 şimdide api isteği sonuçları Text bu Arafat  Bu da PERSON
+
+SPACY-- İstekteki string ifade : Prolonged elevation of plasma argatroban in a cardiac transplant Jarmo with a suspected history of heparin- induced thrombocytopenia with thrombosis. --Document in değerleri Jarmo bunun tag ı 333 şimdide api isteği sonuçları Text bu Jarmo  Bu da PERSON
+
+SPACY-- İstekteki string ifade : Whereas Jannie 1 showed lesions of up to 1 cm readily detectable on magnetic resonance imaging under prolonged co-trimoxazole --Document in değerleri Jannie bunun tag ı 333 şimdide api isteği sonuçları Text bu Jannie  Bu da LAW
+
+SPACY-- İstekteki string ifade : The case of a schizophrenic Little is reported to illustrate massive rhabdomyolysis and subsequent acute renal failure following molindone administration. --Document in değerleri Little bunun tag ı 333 şimdide api isteği sonuçları Text bu Little  Bu da O
+
+SPACY-- İstekteki string ifade : An elderly Dole treated with low dose Desipramine developed a delirium while her plasma level was in the" subtherapeutic" range. --Document in değerleri Dole bunun tag ı 333 şimdide api isteği sonuçları Text bu Dole  Bu da PERSON
+
+SPACY-- İstekteki string ifade : In the seventh Superman, a permanent ventricular pacemaker was inserted and, despite continuation of procainamide therapy, polymorphous ventricular tachycardia did not reoccur. --Document in değerleri Superman bunun tag ı 333 şimdide api isteği sonuçları Text bu Superman  Bu da FAC
+
+SPACY-- İstekteki string ifade : We have described a unique Nadarajah who had reversible and dose- related myasthenia gravis after penicillamine and chloroquine therapy for rheumatoid arthritis. --Document in değerleri Nadarajah bunun tag ı 333 şimdide api isteği sonuçları Text bu Nadarajah  Bu da O
+
+SPACY-- İstekteki string ifade : In this latter Reiffel, and in 2 others, the causal relationship between methyldopa and hepatic dysfunction was proved with the recurrence of hepatitis --Document in değerleri Reiffel bunun tag ı 333 şimdide api isteği sonuçları Text bu Reiffel  Bu da PERSON
+
+SPACY-- İstekteki string ifade : The remaining Rebecca in the series developed fulminant hepatitis when the drug was accidentally recommenced 1 year after a prior episode of methyldopa- induced hepatitis. --Document in değerleri Rebecca bunun tag ı 333 şimdide api isteği sonuçları Text bu Rebecca  Bu da GPE
+
+SPACY-- İstekteki string ifade : We suggest that our Naina' s tubular dysfunction and myopathy may have resulted from mitochondrial dysfunction which is triggered by tacrolimus and augmented by lamivudine --Document in değerleri Naina bunun tag ı 333 şimdide api isteği sonuçları Text bu Naina  Bu da ORG
+
+SPACY-- İstekteki string ifade : A 77- y- old McGrath developed weakness of extremities, legs paralysis, dysarthria and tremor 1 h after ingestion of 200 mg ketoconazole for the first time in his life. --Document in değerleri McGrath bunun tag ı 333 şimdide api isteği sonuçları Text bu McGrath  Bu da PERSON
+
+SPACY-- İstekteki string ifade : Here, we present a similar incident in a severely depressed Abdul who received electroconvulsive therapy( ECT ). Prolonged apnea in our case ensued because the information about suicidal attempt by OP compound --Document in değerleri Abdul bunun tag ı 333 şimdide api isteği sonuçları Text bu Abdul  Bu da PERSON
+
+SPACY-- İstekteki string ifade : CASE SUMMARY: A 25- year- old male Dole, with a height of 175 cm and weight of 72 kg presented to Marmara University Hospital Emergency Department, Istanbul, Turkey, with 5 days' history of jaundice, malaise, nausea, and vomiting. --Document in değerleri Dole bunun tag ı 333 şimdide api isteği sonuçları Text bu Dole  Bu da PERSON
+
+SPACY-- İstekteki string ifade : Abnormal involuntary movements appeared in the mouth, tongue, neck and abdomen of a 64- year- old male Louis after he took metoclopramide for gastrointestinal disorder in a regimen of 30 mg per day for a total of about 260 days. --Document in değerleri Louis bunun tag ı 333 şimdide api isteği sonuçları Text bu Louis  Bu da GPE
+
+BERT -- İstekteki string ifade : Triazolam- induced brief episodes of secondary mania in a depressed Martin. -- Document in değerleri Martin bunun tag ı 333 şimdide api isteği sonuçları Text bu Martin  Bu da I-PER
+
+BERT -- İstekteki string ifade : Acute psychosis due to treatment with phenytoin in a nonepileptic Damon. -- Document in değerleri Damon bunun tag ı 333 şimdide api isteği sonuçları Text bu Damon  Bu da I-PER
+
+BERT -- İstekteki string ifade : On hospital admission, blood pressure of the intubated, bradyarrhythmic Maria was 100/ 65 mmHg. -- Document in değerleri Maria bunun tag ı 333 şimdide api isteği sonuçları Text bu Maria  Bu da I-PER
+
+BERT -- İstekteki string ifade : CONCLUSIONS: The venlafaxine overdose in our Graham resulted in a single episode of generalized seizure -- Document in değerleri Graham bunun tag ı 333 şimdide api isteği sonuçları Text bu Graham  Bu da I-LOC
+
+BERT -- İstekteki string ifade : The case of a nonepileptic Weizman who developed psychosis following phenytoin treatment for trigeminal neuralgia is described. -- Document in değerleri Weizman bunun tag ı 333 şimdide api isteği sonuçları Text bu Weizman  Bu da I-PER
+
+BERT -- İstekteki string ifade : A 47- year- old Malcolm suffering from coronary artery disease was admitted to the CCU in shock with III. -- Document in değerleri Malcolm bunun tag ı 333 şimdide api isteği sonuçları Text bu Malcolm  Bu da I-PER
+
+BERT -- İstekteki string ifade : The fourth Barbara who was unconscious after chlormethiazole administration exhibite generalized non- reactive activity in the slow beta range. -- Document in değerleri Barbara bunun tag ı 333 şimdide api isteği sonuçları Text bu Barbara  Bu da I-PER
+
+BERT -- İstekteki string ifade : Arafat response was assessed using changes in CD4 + lymphocyte subset count, HIV p24 antigen, weight, and quality of life. -- Document in değerleri Arafat bunun tag ı 333 şimdide api isteği sonuçları Text bu Arafat  Bu da I-PER
+
+BERT -- İstekteki string ifade : Prolonged elevation of plasma argatroban in a cardiac transplant Jarmo with a suspected history of heparin- induced thrombocytopenia with thrombosis. -- Document in değerleri Jarmo bunun tag ı 333 şimdide api isteği sonuçları Text bu null  Bu da null
+
+BERT -- İstekteki string ifade : Whereas Jannie 1 showed lesions of up to 1 cm readily detectable on magnetic resonance imaging under prolonged co-trimoxazole -- Document in değerleri Jannie bunun tag ı 333 şimdide api isteği sonuçları Text bu Jannie  Bu da I-MISC
+
+BERT -- İstekteki string ifade : The case of a schizophrenic Little is reported to illustrate massive rhabdomyolysis and subsequent acute renal failure following molindone administration. -- Document in değerleri Little bunun tag ı 333 şimdide api isteği sonuçları Text bu Little  Bu da I-PER
+
+BERT -- İstekteki string ifade : An elderly Dole treated with low dose Desipramine developed a delirium while her plasma level was in the" subtherapeutic" range. -- Document in değerleri Dole bunun tag ı 333 şimdide api isteği sonuçları Text bu Dole  Bu da I-PER
+
+BERT -- İstekteki string ifade : In the seventh Superman, a permanent ventricular pacemaker was inserted and, despite continuation of procainamide therapy, polymorphous ventricular tachycardia did not reoccur. -- Document in değerleri Superman bunun tag ı 333 şimdide api isteği sonuçları Text bu Superman  Bu da I-MISC
+
+BERT -- İstekteki string ifade : We have described a unique Nadarajah who had reversible and dose- related myasthenia gravis after penicillamine and chloroquine therapy for rheumatoid arthritis. -- Document in değerleri Nadarajah bunun tag ı 333 şimdide api isteği sonuçları Text bu Nadarajah  Bu da I-PER
+
+BERT -- İstekteki string ifade : In this latter Reiffel, and in 2 others, the causal relationship between methyldopa and hepatic dysfunction was proved with the recurrence of hepatitis -- Document in değerleri Reiffel bunun tag ı 333 şimdide api isteği sonuçları Text bu Reiffel  Bu da I-PER
+
+BERT -- İstekteki string ifade : The remaining Rebecca in the series developed fulminant hepatitis when the drug was accidentally recommenced 1 year after a prior episode of methyldopa- induced hepatitis. -- Document in değerleri Rebecca bunun tag ı 333 şimdide api isteği sonuçları Text bu Rebecca  Bu da I-PER
+
+BERT -- İstekteki string ifade : We suggest that our Naina' s tubular dysfunction and myopathy may have resulted from mitochondrial dysfunction which is triggered by tacrolimus and augmented by lamivudine -- Document in değerleri Naina bunun tag ı 333 şimdide api isteği sonuçları Text bu Naina  Bu da I-PER
+
+BERT -- İstekteki string ifade : A 77- y- old McGrath developed weakness of extremities, legs paralysis, dysarthria and tremor 1 h after ingestion of 200 mg ketoconazole for the first time in his life. -- Document in değerleri McGrath bunun tag ı 333 şimdide api isteği sonuçları Text bu McGrath  Bu da I-PER
+
+BERT -- İstekteki string ifade : Here, we present a similar incident in a severely depressed Abdul who received electroconvulsive therapy( ECT ). Prolonged apnea in our case ensued because the information about suicidal attempt by OP compound -- Document in değerleri Abdul bunun tag ı 333 şimdide api isteği sonuçları Text bu Abdul  Bu da I-PER
+
+BERT -- İstekteki string ifade : CASE SUMMARY: A 25- year- old male Dole, with a height of 175 cm and weight of 72 kg presented to Marmara University Hospital Emergency Department, Istanbul, Turkey, with 5 days' history of jaundice, malaise, nausea, and vomiting. -- Document in değerleri Dole bunun tag ı 333 şimdide api isteği sonuçları Text bu null  Bu da null
+
+BERT -- İstekteki string ifade : Abnormal involuntary movements appeared in the mouth, tongue, neck and abdomen of a 64- year- old male Louis after he took metoclopramide for gastrointestinal disorder in a regimen of 30 mg per day for a total of about 260 days. -- Document in değerleri Louis bunun tag ı 333 şimdide api isteği sonuçları Text bu Louis  Bu da I-PER
+
+FLAIR -- İstekteki string ifade : Triazolam- induced brief episodes of secondary mania in a depressed Martin. -- Document in değerleri Martin bunun tag ı 333 şimdide api isteği sonuçları Text bu Martin  Bu da PER
+
+FLAIR -- İstekteki string ifade : Acute psychosis due to treatment with phenytoin in a nonepileptic Damon. -- Document in değerleri Damon bunun tag ı 333 şimdide api isteği sonuçları Text bu Damon  Bu da PER
+
+FLAIR -- İstekteki string ifade : On hospital admission, blood pressure of the intubated, bradyarrhythmic Maria was 100/ 65 mmHg. -- Document in değerleri Maria bunun tag ı 333 şimdide api isteği sonuçları Text bu Maria  Bu da MISC
+
+FLAIR -- İstekteki string ifade : CONCLUSIONS: The venlafaxine overdose in our Graham resulted in a single episode of generalized seizure -- Document in değerleri Graham bunun tag ı 333 şimdide api isteği sonuçları Text bu Graham  Bu da PER
+
+FLAIR -- İstekteki string ifade : The case of a nonepileptic Weizman who developed psychosis following phenytoin treatment for trigeminal neuralgia is described. -- Document in değerleri Weizman bunun tag ı 333 şimdide api isteği sonuçları Text bu Weizman  Bu da PER
+
+FLAIR -- İstekteki string ifade : A 47- year- old Malcolm suffering from coronary artery disease was admitted to the CCU in shock with III. -- Document in değerleri Malcolm bunun tag ı 333 şimdide api isteği sonuçları Text bu Malcolm  Bu da PER
+
+FLAIR -- İstekteki string ifade : The fourth Barbara who was unconscious after chlormethiazole administration exhibite generalized non- reactive activity in the slow beta range. -- Document in değerleri Barbara bunun tag ı 333 şimdide api isteği sonuçları Text bu Barbara  Bu da PER
+
+FLAIR -- İstekteki string ifade : Arafat response was assessed using changes in CD4 + lymphocyte subset count, HIV p24 antigen, weight, and quality of life. -- Document in değerleri Arafat bunun tag ı 333 şimdide api isteği sonuçları Text bu Arafat  Bu da PER
+
+FLAIR -- İstekteki string ifade : Prolonged elevation of plasma argatroban in a cardiac transplant Jarmo with a suspected history of heparin- induced thrombocytopenia with thrombosis. -- Document in değerleri Jarmo bunun tag ı 333 şimdide api isteği sonuçları Text bu Jarmo  Bu da PER
+
+FLAIR -- İstekteki string ifade : Whereas Jannie 1 showed lesions of up to 1 cm readily detectable on magnetic resonance imaging under prolonged co-trimoxazole -- Document in değerleri Jannie bunun tag ı 333 şimdide api isteği sonuçları Text bu Jannie  Bu da PER
+
+FLAIR -- İstekteki string ifade : The case of a schizophrenic Little is reported to illustrate massive rhabdomyolysis and subsequent acute renal failure following molindone administration. -- Document in değerleri Little bunun tag ı 333 şimdide api isteği sonuçları Text bu null  Bu da null
+
+FLAIR -- İstekteki string ifade : An elderly Dole treated with low dose Desipramine developed a delirium while her plasma level was in the" subtherapeutic" range. -- Document in değerleri Dole bunun tag ı 333 şimdide api isteği sonuçları Text bu Dole  Bu da PER
+
+FLAIR -- İstekteki string ifade : In the seventh Superman, a permanent ventricular pacemaker was inserted and, despite continuation of procainamide therapy, polymorphous ventricular tachycardia did not reoccur. -- Document in değerleri Superman bunun tag ı 333 şimdide api isteği sonuçları Text bu Superman  Bu da PER
+
+FLAIR -- İstekteki string ifade : We have described a unique Nadarajah who had reversible and dose- related myasthenia gravis after penicillamine and chloroquine therapy for rheumatoid arthritis. -- Document in değerleri Nadarajah bunun tag ı 333 şimdide api isteği sonuçları Text bu Nadarajah  Bu da MISC
+
+FLAIR -- İstekteki string ifade : In this latter Reiffel, and in 2 others, the causal relationship between methyldopa and hepatic dysfunction was proved with the recurrence of hepatitis -- Document in değerleri Reiffel bunun tag ı 333 şimdide api isteği sonuçları Text bu Reiffel  Bu da PER
+
+FLAIR -- İstekteki string ifade : The remaining Rebecca in the series developed fulminant hepatitis when the drug was accidentally recommenced 1 year after a prior episode of methyldopa- induced hepatitis. -- Document in değerleri Rebecca bunun tag ı 333 şimdide api isteği sonuçları Text bu Rebecca  Bu da PER
+
+FLAIR -- İstekteki string ifade : We suggest that our Naina' s tubular dysfunction and myopathy may have resulted from mitochondrial dysfunction which is triggered by tacrolimus and augmented by lamivudine -- Document in değerleri Naina bunun tag ı 333 şimdide api isteği sonuçları Text bu Naina  Bu da PER
+
+FLAIR -- İstekteki string ifade : A 77- y- old McGrath developed weakness of extremities, legs paralysis, dysarthria and tremor 1 h after ingestion of 200 mg ketoconazole for the first time in his life. -- Document in değerleri McGrath bunun tag ı 333 şimdide api isteği sonuçları Text bu McGrath  Bu da PER
+
+FLAIR -- İstekteki string ifade : Here, we present a similar incident in a severely depressed Abdul who received electroconvulsive therapy( ECT ). Prolonged apnea in our case ensued because the information about suicidal attempt by OP compound -- Document in değerleri Abdul bunun tag ı 333 şimdide api isteği sonuçları Text bu Abdul  Bu da PER
+
+FLAIR -- İstekteki string ifade : CASE SUMMARY: A 25- year- old male Dole, with a height of 175 cm and weight of 72 kg presented to Marmara University Hospital Emergency Department, Istanbul, Turkey, with 5 days' history of jaundice, malaise, nausea, and vomiting. -- Document in değerleri Dole bunun tag ı 333 şimdide api isteği sonuçları Text bu Dole  Bu da PER
+
+FLAIR -- İstekteki string ifade : Abnormal involuntary movements appeared in the mouth, tongue, neck and abdomen of a 64- year- old male Louis after he took metoclopramide for gastrointestinal disorder in a regimen of 30 mg per day for a total of about 260 days. -- Document in değerleri Louis bunun tag ı 333 şimdide api isteği sonuçları Text bu Louis  Bu da PER
+

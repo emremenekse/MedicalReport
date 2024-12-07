@@ -214,6 +214,7 @@ namespace MedicalReport.Concrete
                             previousToken.ToLower() != "the" && previousToken.ToLower() != "a" &&
                             previousToken.ToLower() != "1" &&
                             previousToken.ToLower() != "per" &&
+                            previousToken.ToLower() != "this" &&
                             previousToken.ToLower() != "one" && previousToken.ToLower() != "ın" && previousToken.ToLower() != "each")
                             {
                                 filteredDocuments.Add(doc); 
