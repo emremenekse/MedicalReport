@@ -422,6 +422,53 @@ namespace MedicalReport.Services
 
 
 
+            int stanzacorrectCount = 0;
+            int stanzaincorrectCount = 0;
+
+            foreach (var (document, index) in clearedDocuments.Select((doc, i) => (doc, i)))
+            {
+                var requestText = updatedDocumentsAsStringList[index];
+
+                var payload = new { text = requestText };
+                var result = await _httpService.PostAsync<TokenResponse, object>("http://localhost:5000/api/predict/stanza", payload);
+
+                for (int j = 0; j < document.Tokens.Count; j++)
+                {
+                    var tokenText = document.Tokens[j];
+                    var tokenTag = document.Tags[j];
+
+                    if (tokenTag == 333 && char.IsUpper(tokenText[0]))
+                    {
+                        var matchingResponseToken = result.Body.Tokens.FirstOrDefault(t => t.Text == tokenText);
+                        await WriteToFileAsync(logFilePath, $"STANZA -- İstekteki string ifade : {requestText} -- Document in değerleri {tokenText} bunun tag ı {tokenTag} şimdide api isteği sonuçları Text bu {matchingResponseToken?.Text ?? "null"}  Bu da {matchingResponseToken?.EntityType ?? "null"}\n");
+
+                        if (matchingResponseToken != null)
+                        {
+                            if (matchingResponseToken.EntityType == "PERSON")
+                            {
+                                stanzacorrectCount++;
+                                break;
+                            }
+                            else
+                            {
+                                stanzaincorrectCount++;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            stanzaincorrectCount++;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine($"Stanza Doğru Sayısı: {stanzacorrectCount}");
+            Console.WriteLine($"Stanza Yanlış Sayısı: {stanzaincorrectCount}");
+
+
+
         }
         async Task WriteToFileAsync(string logFilePath, string text)
         {
